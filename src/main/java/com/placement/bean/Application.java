@@ -17,12 +17,12 @@ public class Application {
 	@Column(name = "APPLICATION_ID")
 	private int applicationID;
 
-    // Many Applications → One Student
+   
     @ManyToOne
     @JoinColumn(name = "STUDENT_REG_NO")
     private Student student;
 
-    // Many Applications → One Company
+   
     @ManyToOne
     @JoinColumn(name = "COMPANY_ID")
     private Company company;
@@ -47,7 +47,6 @@ public class Application {
 
     public Application() {}
 
-    // Getters and Setters
 
     public int getApplicationID() {
         return applicationID;

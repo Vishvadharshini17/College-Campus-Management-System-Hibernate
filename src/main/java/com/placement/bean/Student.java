@@ -98,6 +98,4 @@ public class Student {
 		this.status = status;
 	}
     
-
-    // Getters and Setters
 }

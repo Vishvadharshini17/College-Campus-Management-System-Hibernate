@@ -99,6 +99,4 @@ public class Company {
 		this.status = status;
 	}
     
-
-    // Getters and Setters
 }

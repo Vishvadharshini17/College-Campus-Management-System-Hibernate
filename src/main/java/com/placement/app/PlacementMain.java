@@ -4,18 +4,28 @@ import com.placement.bean.*;
 import com.placement.service.PlacementService;
 
 import java.sql.Date;
+import java.util.Scanner;
 
 public class PlacementMain {
 
     private static PlacementService service = new PlacementService();
 
     public static void main(String[] args) {
+    	System.setProperty("org.jboss.logging.provider", "jdk");
+    	java.util.logging.Logger.getLogger("org.hibernate")
+    	        .setLevel(java.util.logging.Level.SEVERE);
 
-        System.out.println("--- Campus Placement Management ---");
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("=== Campus Placement Management ===");
 
         try {
 
-            Student s = service.viewStudentDetails("21CSE001");
+          
+            System.out.print("Enter Student Registration Number: ");
+            String regNo = sc.nextLine();
+
+            Student s = service.viewStudentDetails(regNo);
 
             if (s != null) {
                 System.out.println("\nSTUDENT FOUND");
@@ -25,9 +35,13 @@ public class PlacementMain {
                 System.out.println("CGPA   : " + s.getCgpa());
             } else {
                 System.out.println("STUDENT NOT FOUND");
+                return;
             }
 
-            Company c = service.viewCompanyDetails("CMP001");
+            System.out.print("\nEnter Company ID: ");
+            String companyId = sc.nextLine();
+
+            Company c = service.viewCompanyDetails(companyId);
 
             if (c != null) {
                 System.out.println("\nCOMPANY FOUND");
@@ -36,22 +50,27 @@ public class PlacementMain {
                 System.out.println("Status  : " + c.getStatus());
             } else {
                 System.out.println("COMPANY NOT FOUND");
+                return;
             }
 
+            
             Date appliedDate = new Date(System.currentTimeMillis());
 
             boolean ok = service.applyForCompany(
-                    "21CSE001",
-                    "CMP001",
+                    regNo,
+                    companyId,
                     appliedDate
             );
 
-            System.out.println(ok
-                    ? "\nAPPLICATION SUBMITTED"
-                    : "\nAPPLICATION FAILED");
+            if (ok)
+                System.out.println("\nAPPLICATION SUBMITTED SUCCESSFULLY");
+            else
+                System.out.println("\nAPPLICATION FAILED");
 
         } catch (Exception e) {
-            System.out.println("System Error: " + e.getMessage());
+            System.out.println("System Error: " + e);
+        } finally {
+            sc.close();
         }
     }
 }

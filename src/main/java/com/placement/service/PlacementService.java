@@ -13,7 +13,6 @@ public class PlacementService {
     private CompanyDAO companyDAO = new CompanyDAO();
     private ApplicationDAO applicationDAO = new ApplicationDAO();
 
-    // Register Student
     public boolean registerNewStudent(Student s)
             throws ValidationException, Exception {
 
@@ -24,7 +23,7 @@ public class PlacementService {
         return studentDAO.insertStudent(s);
     }
 
-    // Register Company
+  
     public boolean registerCompanyDrive(Company c)
             throws ValidationException, Exception {
 
@@ -35,17 +34,17 @@ public class PlacementService {
         return companyDAO.insertCompany(c);
     }
 
-    // View Student
+  
     public Student viewStudentDetails(String regNo) throws Exception {
         return studentDAO.findStudentByRegNo(regNo);
     }
 
-    // View Company
+   
     public Company viewCompanyDetails(String companyId) throws Exception {
         return companyDAO.findCompanyById(companyId);
     }
 
-    // Apply For Company (UPDATED FOR RELATIONSHIP)
+  
     public boolean applyForCompany(String regNo, String companyId, Date appliedDate)
             throws ValidationException, EligibilityViolationException, Exception {
 
@@ -63,7 +62,7 @@ public class PlacementService {
 
         Application a = new Application();
 
-        // 🔥 SET OBJECTS NOT IDs
+      
         a.setStudent(s);
         a.setCompany(c);
 
@@ -73,7 +72,7 @@ public class PlacementService {
         return applicationDAO.insertApplication(a);
     }
 
-    // List Applications
+   
     public List<Application> listApplicationsByStudent(String regNo)
             throws Exception {
 
